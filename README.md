@@ -3,7 +3,7 @@
 
 ### Motivação:
 
-Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava nada. Graças a isso, junto ao professor Paulo Aguiar em minha iniciação científica desenvolvemos um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a intenderem o que de fato está acontecendo no computador.
+Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava muita coisa. Graças a isso, desenvolvi um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a aprender assembly e descobrir o que de fato está sendo feito pela máquina.
 
 ### Introdução:
 
@@ -121,6 +121,15 @@ De uma forma geral, o caso clássico de buffer overflow consiste em injetar cód
     * Consiste em colocar antes do shellcode uma série de nops. Essa instrução "queima" um ciclo de máquina. dessa forma, o espaço para "chutar" o começo do shellcode em um buffer fica muito maior e assim, mais fácil de ser acertado.
 *   Área de mamória não executável -> return to libc:
     *   Como visto no lab3, vimos que é possível obter uma shell sem necessáriamente executar código injetado em um buffer. Dessa forma, a shell é fornecida e a execução não é abortada.   
+
+### Agradecimentos:
+
+Gostaria de agradecer ao professor Paulo Aguiar do departamento de ciência da computação - UFRJ por me dar a oportunidade de desenvolver um projeto de iniciação científica nessa área, aos membros do GRIS-UFRJ, que sempre que necessário me ajudaram e ajudam no mundo da segurança e a minha família que sempre me apoiou.
+
+### Referências bibliográficas:
+
+*	The Shellcoder's Handbook: Discovering and Exploiting Security Holes, Chris Anley, John Heasman, Felix Linder
+*	Hacking: The Art of Exploitation , Jon Erikson
 
 
 
