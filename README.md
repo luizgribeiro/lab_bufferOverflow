@@ -5,6 +5,11 @@
 
 Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava muita coisa. Graças a isso, desenvolvi um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a aprender assembly e descobrir o que de fato está sendo feito pela máquina.
 
+#### Nota inicial:
+
+Favor baixar a máquina virtual que se encontra nesse [link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
+
+
 ### Introdução:
 
 ### Histórico:
