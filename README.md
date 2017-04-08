@@ -9,6 +9,9 @@ Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava
 
 Favor baixar a máquina virtual que se encontra nesse [link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
 
+Usuário para acesso inicial: overflow senha: overflow
+Senha de root está disponível no final deste documento. Ela pode ser utilizada para acessar o gabarito presente na máquina.
+
 
 ### Introdução:
 
@@ -126,6 +129,8 @@ De uma forma geral, o caso clássico de buffer overflow consiste em injetar cód
     * Consiste em colocar antes do shellcode uma série de nops. Essa instrução "queima" um ciclo de máquina. dessa forma, o espaço para "chutar" o começo do shellcode em um buffer fica muito maior e assim, mais fácil de ser acertado.
 *   Área de mamória não executável -> return to libc:
     *   Como visto no lab3, vimos que é possível obter uma shell sem necessáriamente executar código injetado em um buffer. Dessa forma, a shell é fornecida e a execução não é abortada.   
+
+#### senha de root da máquina virtual: buff
 
 ### Agradecimentos:
 
