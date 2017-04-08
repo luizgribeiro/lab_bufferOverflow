@@ -7,11 +7,12 @@ Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava
 
 #### Nota inicial:
 
-Favor baixar a máquina virtual que se encontra nesse [link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
+Favor baixar a máquina virtual que se encontra [nesse link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
 
 Usuário para acesso inicial: overflow senha: overflow
 Senha de root está disponível no final deste documento. Ela pode ser utilizada para acessar o gabarito presente na máquina.
 
+Para facilitar a execução dos labs, rode o programa setup que se encontra na home do usuário overflow. Ao fazer isso a randomização da pilha será desligada
 
 ### Introdução:
 
@@ -95,6 +96,7 @@ Com o auxílio da função system é possível executar comandos em uma shell e 
 ### Lab3: Retornando para funções da libc
 
 O primeiro passo nesse laboratório é observar o local em que o rip (return instruction pointer), criado pelo desvio de fluxo com CALL, está. A partir disso, devemos colocar nessa ordem na pilha os endereços de system() e exit() e os endereço do parâmetro para system ("/bin/sh").
+Nota: o programa setPermission deve ser utilizado para que o compilado de program.c rode com privilégio de root. Dessa forma, ao conseguir realizar a tarefa, será fornecida uma shell como root e assim, o acesso ao gabarito será conquistado.
 
 *   Como descobrir o endereço de system e exit?
     *   Primeiro, no gdb, devemos colocar um breakpoint na função main e rodar o programa até que esse ponto de parada seja alcançado para que as funções system e exit sejam carregadas (b main)(run). Após isso, os endereços das funções devem ser encontrados  com o comando p <nome da função> (print). 
