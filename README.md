@@ -95,7 +95,7 @@ Com o auxílio da função system é possível executar comandos em uma shell e 
 
 ### Lab3: Retornando para funções da libc
 
-O primeiro passo nesse laboratório é observar o local em que o rip (return instruction pointer), criado pelo desvio de fluxo com CALL, está. A partir disso, devemos colocar nessa ordem na pilha os endereços de system() e exit() e os endereço do parâmetro para system ("/bin/sh").
+O primeiro passo nesse laboratório é observar o local em que o rip (return instruction pointer), criado pelo desvio de fluxo com CALL, está. A partir disso, devemos colocar nessa ordem na pilha os endereços de system() e exit() e o endereço do parâmetro para system ("/bin/sh").
 Nota: o programa setPermission deve ser utilizado para que o compilado de program.c rode com privilégio de root. Dessa forma, ao conseguir realizar a tarefa, será fornecida uma shell como root e assim, o acesso ao gabarito será conquistado.
 
 *   Como descobrir o endereço de system e exit?
