@@ -3,85 +3,82 @@
 
 ### Motivação:
 
-Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava muita coisa. Graças a isso, desenvolvi um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a aprender assembly e descobrir o que de fato está sendo feito pela máquina.
+	Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava muita coisa. Graças a isso, desenvolvi um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a aprender assembly e descobrir o que de fato está sendo feito pela máquina.
 
 #### Nota inicial:
 
-Favor baixar a máquina virtual que se encontra [nesse link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
+	Favor baixar a máquina virtual que se encontra [nesse link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
 
-Usuário para acesso inicial: overflow senha: overflow
-Senha de root está disponível no final deste documento. Ela pode ser utilizada para acessar o gabarito presente na máquina.
+	Usuário para acesso inicial: overflow senha: overflow
+	Senha de root está disponível no final deste documento. Ela pode ser utilizada para acessar o gabarito presente na máquina.
 
-Para facilitar a execução dos labs, rode o programa setup que se encontra na home do usuário overflow. Ao fazer isso a randomização da pilha será desligada
 
 ### Introdução:
 
 ### Histórico:
 
-Buffer overflow é um tipo de vulnerabilidade conhecida desde o começo dos anos 90, com o primeiro artigo de destaque sobre o tema divulgado na phrack magazine por Aleph1 em 1996. De uma maneira geral, todo problema gira em torno da execução de dados fornecidos pelo usuário. Mas antes de aprofundarmos um pouco mais nessa questão devemos definir alguns conceitos.
+	Buffer overflow é um tipo de vulnerabilidade conhecida desde o começo dos anos 90, com o primeiro artigo de destaque sobre o tema divulgado na phrack magazine por Aleph1 em 1996. De uma maneira geral, todo problema gira em torno da execução de dados fornecidos pelo usuário. Mas antes de aprofundarmos um pouco mais nessa questão devemos definir alguns conceitos.
 
 ### Definições iniciais
 
-* Buffer:
-	* Uma região de memória contígua, responsável por armazenar determinada estrutura de dados.
-* Overflow:
-	* Ter o conteúdo transbordando ou derramando
-* Buffer overflow:
-	* Preencher um buffer além do seu limite, causando um transbordamento e, possivelmente, corrompendo outros dados contidos na memória.
-* Pilha:
-	* Área de memória de um processo que funciona da maneira FILO (first in last out). Nela, são armazenadas e trabalhadas as variáveis locais e quaisquer outras informações necessárias em tempo de execução.
+	* Buffer:
+		* Uma região de memória contígua, responsável por armazenar determinada estrutura de dados.
+	* Overflow:
+		* Ter o conteúdo transbordando ou derramando
+	* Buffer overflow:
+		* Preencher um buffer além do seu limite, causando um transbordamento e, possivelmente, corrompendo outros dados contidos na memória.
+	* Pilha:
+		* Área de memória de um processo que funciona da maneira FILO (first in last out). Nela, são armazenadas e trabalhadas as variáveis locais e quaisquer outras informações necessárias em tempo de execução.
 
-
-Nesse ponto, devemos nos preparar para os laboratórios, executando o arquivo setup presente na home do usuário overflow. Ele desliga a randomização da memória, o que facilita a exploração dessas vulnerabilidades.
-	
+	Para facilitar a execução dos labs, rode o programa setup que se encontra na home do usuário overflow. Ao fazer isso a randomização do layout de endereçamento da memória será desligada.
 
 ### Lab1: Seu primeiro buffer overflow
 
-O laboratório está nomeado como PrimeiroBO. As seguintes questões são levantadas quanto ao código C presente no diretório de mesmo nome.
+	O laboratório está nomeado como PrimeiroBO. As seguintes questões são levantadas quanto ao código C presente no diretório de mesmo nome.
 
-* O que o código C está fazendo?
-	* Declarando duas variáveis (um inteiro e um ponteiro para um buffer);
-	* Armazenando uma string dentro do buffer;
-	* Verificando o conteúdo da variável inteira para que sejam exibidos diferentes prints.
+	* O que o código C está fazendo?
+		* Declarando duas variáveis (um inteiro e um ponteiro para um buffer);
+		* Armazenando uma string dentro do buffer;
+		* Verificando o conteúdo da variável inteira para que sejam exibidos diferentes prints.
 
-* Qual a utilidade de volatile no código?
-	* Volatile diz ao compilador o que não deve otimizar em caso algum. Nesse caso, se o compilador fosse "esperto" o suficiente, identificaria que o valor da variável não é alterado ao longo do código e otimizaria todas as comparações realizadas pelos ifs com o caso em que é considerado sempre verdade. Isso ocorreria quando tested igual a 1. Com isso, a mensagem "O valor não foi modificado" seria exibida sempre.
+	* Qual a utilidade de volatile no código?
+		* Volatile diz ao compilador o que não deve otimizar em caso algum. Nesse caso, se o compilador fosse "esperto" o suficiente, identificaria que o valor da variável não é alterado ao longo do código e otimizaria todas as comparações realizadas pelos ifs com o caso em que é considerado sempre verdade. Isso ocorreria quando tested igual a 1. Com isso, a mensagem "O valor não foi modificado" seria exibida sempre.
 
-* Qual a função da pilha?
-	* Nesse contexto, a pilha é responsável por armazenar a variável inteira tested, o ponteiro para string buffer e o buffer propriamente dito.
+	* Qual a função da pilha?
+		* Nesse contexto, a pilha é responsável por armazenar a variável inteira tested, o ponteiro para string buffer (endereço do primeiro elemento do buffer) e o buffer propriamente dito.
 
-* Qual o tamanho de um char?
-	* Através de um print da função sizeof, utilizando como parâmetro char, chegamos a conclusão que o tamanho de um char corresponde a 1 byte.
+	* Qual o tamanho de um char?
+		* Através de um print da função sizeof, utilizando como parâmetro char, chegamos a conclusão que o tamanho de um char corresponde a 1 byte.
 
-* Quantos chars são necessários para corromper a variável inteira de maneira proposital?
-	* 69
+	* Quantos chars são necessários para corromper a variável inteira de maneira proposital?
+		* 69
 
 ### Fluxo de controle utilizando a pilha
 
-Muitas vezes em um programa vemos uma chamada de função dentro de uma outra função. Como exemplo, temos o código abaixo, em que a função main chama a função printf duas vezes. No entando, sabendo que as funções estão em diferentes regiões de memória, devemos ter algum mecanismo para que a execução pule da função main para o primeiro printf, do printf para a main novamente, da main para o segundo printf e do segundo printf para a main finalmente. Esse controle de fluxo de código é feito através da pilha. A instrução de máquina CALL é responsável por colocar na pilha (PUSH) o que o registrador %eip aponta. O %eip por sua vez, armazena o endereço da próxima instrução a ser executada naquele escopo. Ao término da função chamada, a instrução RET é executada, e com isso, o endereço da próxima instrução é retirado da pilha (POP) e utilizado para a continuidade da execução do programa.
+	Muitas vezes em um programa vemos uma chamada de função dentro de uma outra função. Como exemplo, temos o código abaixo, em que a função main chama a função printf duas vezes. No entando, sabendo que as funções estão em diferentes regiões de memória, devemos ter algum mecanismo para que a execução pule da função main para o primeiro printf, do printf para a main novamente, da main para o segundo printf e do segundo printf para a main finalmente. Esse controle de fluxo de código é feito através da pilha. A instrução de máquina CALL é responsável por colocar na pilha (PUSH) o que o registrador %eip aponta. O %eip por sua vez, armazena o endereço da próxima instrução a ser executada naquele escopo. Ao término da função chamada, a instrução RET é executada, e com isso, o endereço da próxima instrução é retirado da pilha (POP) e utilizado para a continuidade da execução do programa.
 
 
-    #include <stdio.h>
+		#include <stdio.h>
 
-    int main(){
-	    printf("Olá mundo!");
-	    printf("Tchau mundo!");
-	    return 0;
-    }
+		int main(){
+			printf("Olá mundo!");
+			printf("Tchau mundo!");
+			return 0;
+		}
 
 
 ### Lab2: Revivendo Código morto
 
-Como acabamos de ver, ao entrar em uma função é guardado um endereço de instrução a ser executada ao término da chamada de função. 
-O intuito desse laboratório é mostrar como utilizando C, uma linguagem dita "perigosa" por deixar que algumas coisas como essa sejam feitas, podemos andar pela pilha, descobrir o local em que o endereço dessa próxima instrução está armazenado e modificá-lo para executar uma função que não havia sido chamada previamente no programa.
+	Como acabamos de ver, ao entrar em uma função é guardado um endereço de instrução a ser executada ao término da chamada de função. 
+	O intuito desse laboratório é mostrar como utilizando C, uma linguagem dita "perigosa" por deixar que algumas coisas como essa sejam feitas, podemos andar pela pilha, descobrir o local em que o endereço dessa próxima instrução está armazenado e modificá-lo para executar uma função que não havia sido chamada previamente no programa.
 
-* Como declarar um ponteiro e atribuir a ele um endereço na pilha?
-	* int *pointer = (int *) &pointer
-* Como descobrir o endereço da instrução guardada?
-	* Bem, nessa parte precisamos de um pouco de engenharia reversa. No entanto, consigo dizer exatamente onde ele estará pois nesse caso os passos da execução não mudarão. Sabendo que o ponteiro está 12 endereços abaixo da base da pilha. Então, o endereço de retorno estará no primeiro endereço acima da base da pilha dessa forma, a 16 acima do nosso ponteiro (contamos endereços de 4 em 4 para 32bits). como estamos trabalhando em C, devemos levar em conta a aritmética de ponteiros. Isso quer dizer que para acessarmos essa área de memória basta utilizarmos pointer[4] ou *(pointer + 4).
-* O que colocar nesse endereço?
-	* Se queremos "reviver" deadCode, colocaríamos ali o endereço de deadCode (p[4] = &deadCode). Tudo certo. No entanto, utilizaremos a distância estática entre diferentes áreas de código em um mesmo processo para realizar essa tarefa. Dessa forma, com o gdb:
-		* disas main descobrimos o endereço da próxima instrução após call (0x08048454)
+	* Como declarar um ponteiro e atribuir a ele um endereço na pilha?
+		* int *pointer = (int *) &pointer
+	* Como descobrir o endereço da instrução guardada?
+		* Bem, nessa parte precisamos de um pouco de engenharia reversa. No entanto, consigo dizer exatamente onde ele estará pois nesse caso os passos da execução não mudarão. Sabendo que o ponteiro está 12 endereços abaixo da base da pilha. Então, o endereço de retorno estará no primeiro endereço acima da base da pilha dessa forma, a 16 acima do nosso ponteiro (contamos endereços de 4 em 4 para 32bits). como estamos trabalhando em C, devemos levar em conta a aritmética de ponteiros. Isso quer dizer que para acessarmos essa área de memória basta utilizarmos pointer[4] ou *(pointer + 4).
+	* O que colocar nesse endereço?
+		* Se queremos "reviver" deadCode, colocaríamos ali o endereço de deadCode (p[4] = &deadCode). Tudo certo. No entanto, utilizaremos a distância estática entre diferentes áreas de código em um mesmo processo para realizar essa tarefa. Dessa forma, com o gdb:
+			* disas main descobrimos o endereço da próxima instrução após call (0x08048454)
 		* disas deadCode descobrimos o endereços da primeira instrução de deadCode (0x080483fb)	
 		* então, se estamos em 0x08048454 e queremos ficar em 0x080483fb, subtraímos 0x59 unidades nessa região (p[4] -= 0x59).
 
@@ -118,16 +115,16 @@ De uma forma geral, o caso clássico de buffer overflow consiste em injetar cód
 ### Técnicas de proteção dos sistemas operacionais
 
 *   Canários de pilha:
-    *   Canários são mecanismos de verificar a integridade dos dados guardados na pilha. Assim como antigamente, nas minas, os canários eram utilizados como alarme (se o canário morresse/desmaiasse todos os mineiros saíam dela pois o nível de oxigênio estava baixo de mais), em computação os canários são posicionados ao final de um buffer. Caso o buffer seja estourado, o canário será "morto" e a execução do programa será abortada.
-*   Randomização de pilha:
-    *   O sistema operacional randomiza as áreas de memória (não utiliza a seguinte/vazia) para que fique mais difícil de sobrescrever o endereço da instrução de retorno (rip) com o endereço do primeiro elemento do buffer/primeira instrução do shellcode.
+    *   Canários são mecanismos de verificar a integridade dos dados guardados na pilha, como sua base e o endereço da instrução de retorno. Assim como antigamente, nas minas, os canários eram utilizados como alarme (se o canário morresse/desmaiasse todos os mineiros saíam dela pois o nível de oxigênio estava baixo de mais), em computação os canários são posicionados entre o fim de um buffer e o endereço da intrução de retorno (rip). Caso o buffer seja estourado e o canário alterado, a execução do programa será abortada.
+*   Randomização do layout da memória:
+    *   O sistema operacional randomiza as áreas de memória (não utiliza a seguinte/vazia) para que fique mais difícil de sobrescrever o endereço da instrução de retorno (rip) com o endereço desejado. Assim, fica mais difícil descobrir qual o endereço do primeiro elemento do buffer que vem a ser a primeira instrução do shellcode.
 *   Área de memória não executável:
     *   Áreas de um processo como a pilha são marcadas como não executáveis. Assim, ao tentar executar qualquer instrução que tenha sido injetada em buffer, a execução será abortada.
 
 
 ### Técnicas contra as proteções
 
-*   Randomização de pilha -> nop sled:
+*   Randomização do layout da memória-> nop sled:
     * Consiste em colocar antes do shellcode uma série de nops. Essa instrução "queima" um ciclo de máquina. dessa forma, o espaço para "chutar" o começo do shellcode em um buffer fica muito maior e assim, mais fácil de ser acertado.
 *   Área de mamória não executável -> return to libc:
     *   Como visto no lab3, vimos que é possível obter uma shell sem necessáriamente executar código injetado em um buffer. Dessa forma, a shell é fornecida e a execução não é abortada.   
@@ -136,7 +133,7 @@ De uma forma geral, o caso clássico de buffer overflow consiste em injetar cód
 
 ### Agradecimentos:
 
-Gostaria de agradecer ao professor Paulo Aguiar do departamento de ciência da computação - UFRJ por me dar a oportunidade de desenvolver um projeto de iniciação científica nessa área, aos membros do GRIS-UFRJ, que sempre que necessário me ajudaram e ajudam no mundo da segurança e a minha família que sempre me apoiou.
+Gostaria de agradecer ao professor Paulo Aguiar do departamento de ciência da computação - UFRJ por me dar a oportunidade de desenvolver um projeto de iniciação científica nessa área, aos membros do GRIS-UFRJ, que sempre que necessário me ajudaram e ajudam no mundo da segurança e a minha família pelo apoio e carinho.
 
 ### Referências bibliográficas:
 
