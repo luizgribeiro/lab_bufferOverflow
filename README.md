@@ -12,7 +12,6 @@
 	Usuário para acesso inicial: overflow senha: overflow
 	Senha de root está disponível no final deste documento. Ela pode ser utilizada para acessar o gabarito presente na máquina.
 
-
 ### Introdução:
 
 ### Histórico:
