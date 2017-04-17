@@ -16,14 +16,14 @@ Senha de root está disponível no final deste documento. Ela pode ser utilizada
 Buffer overflow é um tipo de vulnerabilidade conhecida desde o começo dos anos 90, com o primeiro artigo de destaque sobre o tema divulgado na phrack magazine por Aleph1 em 1996. De uma maneira geral, todo problema gira em torno da execução de dados fornecidos pelo usuário. Mas antes de aprofundarmos um pouco mais nessa questão devemos definir alguns conceitos.
 
 ### Definições iniciais
-	* Buffer:
-		* Uma região de memória contígua, responsável por armazenar determinada estrutura de dados.
-	* Overflow:
-		* Ter o conteúdo transbordando ou derramando
-	* Buffer overflow:
-		* Preencher um buffer além do seu limite, causando um transbordamento e, possivelmente, corrompendo outros dados contidos na memória.
-	* Pilha:
-		* Área de memória de um processo que funciona da maneira FILO (first in last out). Nela, são armazenadas e trabalhadas as variáveis locais e quaisquer outras informações necessárias em tempo de execução.
+* Buffer:
+	* Uma região de memória contígua, responsável por armazenar determinada estrutura de dados.
+* Overflow:
+	* Ter o conteúdo transbordando ou derramando
+* Buffer overflow:
+	* Preencher um buffer além do seu limite, causando um transbordamento e, possivelmente, corrompendo outros dados contidos na memória.
+* Pilha:
+	* Área de memória de um processo que funciona da maneira FILO (first in last out). Nela, são armazenadas e trabalhadas as variáveis locais e quaisquer outras informações necessárias em tempo de execução.
 
 Para facilitar a execução dos labs, rode o programa setup que se encontra na home do usuário overflow. Ao fazer isso a randomização do layout de endereçamento da memória será desligada.
 
@@ -31,22 +31,22 @@ Para facilitar a execução dos labs, rode o programa setup que se encontra na h
 
 O laboratório está nomeado como PrimeiroBO. As seguintes questões são levantadas quanto ao código C presente no diretório de mesmo nome.
 
-	* O que o código C está fazendo?
-		* Declarando duas variáveis (um inteiro e um ponteiro para um buffer);
-		* Armazenando uma string dentro do buffer;
-		* Verificando o conteúdo da variável inteira para que sejam exibidos diferentes prints.
+* O que o código C está fazendo?
+	* Declarando duas variáveis (um inteiro e um ponteiro para um buffer);
+	* Armazenando uma string dentro do buffer;
+	* Verificando o conteúdo da variável inteira para que sejam exibidos diferentes prints.
 
-	* Qual a utilidade de volatile no código?
-		* Volatile diz ao compilador o que não deve otimizar em caso algum. Nesse caso, se o compilador fosse "esperto" o suficiente, identificaria que o valor da variável não é alterado ao longo do código e otimizaria todas as comparações realizadas pelos ifs com o caso em que é considerado sempre verdade. Isso ocorreria quando tested igual a 1. Com isso, a mensagem "O valor não foi modificado" seria exibida sempre.
+* Qual a utilidade de volatile no código?
+	* Volatile diz ao compilador o que não deve otimizar em caso algum. Nesse caso, se o compilador fosse "esperto" o suficiente, identificaria que o valor da variável não é alterado ao longo do código e otimizaria todas as comparações realizadas pelos ifs com o caso em que é considerado sempre verdade. Isso ocorreria quando tested igual a 1. Com isso, a mensagem "O valor não foi modificado" seria exibida sempre.
 
-	* Qual a função da pilha?
-		* Nesse contexto, a pilha é responsável por armazenar a variável inteira tested, o ponteiro para string buffer (endereço do primeiro elemento do buffer) e o buffer propriamente dito.
+* Qual a função da pilha?
+	* Nesse contexto, a pilha é responsável por armazenar a variável inteira tested, o ponteiro para string buffer (endereço do primeiro elemento do buffer) e o buffer propriamente dito.
 
-	* Qual o tamanho de um char?
-		* Através de um print da função sizeof, utilizando como parâmetro char, chegamos a conclusão que o tamanho de um char corresponde a 1 byte.
+* Qual o tamanho de um char?
+	* Através de um print da função sizeof, utilizando como parâmetro char, chegamos a conclusão que o tamanho de um char corresponde a 1 byte.
 
-	* Quantos chars são necessários para corromper a variável inteira de maneira proposital?
-		* 69
+* Quantos chars são necessários para corromper a variável inteira de maneira proposital?
+	* 69
 
 ### Fluxo de controle utilizando a pilha
 
