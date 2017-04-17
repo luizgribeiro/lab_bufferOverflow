@@ -2,18 +2,18 @@
 ### uma abordagem prática
 
 ### Motivação:
-	Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava muita coisa. Graças a isso, desenvolvi um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a aprender assembly e descobrir o que de fato está sendo feito pela máquina.
+Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava muita coisa. Graças a isso, desenvolvi um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a aprender assembly e descobrir o que de fato está sendo feito pela máquina.
 
 #### Nota inicial:
-	Favor baixar a máquina virtual que se encontra [nesse link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
+Favor baixar a máquina virtual que se encontra [nesse link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
 
-	Usuário para acesso inicial: overflow senha: overflow
-	Senha de root está disponível no final deste documento. Ela pode ser utilizada para acessar o gabarito presente na máquina.
+Usuário para acesso inicial: overflow senha: overflow
+Senha de root está disponível no final deste documento. Ela pode ser utilizada para acessar o gabarito presente na máquina.
 
 ### Introdução:
 
 ### Histórico:
-	Buffer overflow é um tipo de vulnerabilidade conhecida desde o começo dos anos 90, com o primeiro artigo de destaque sobre o tema divulgado na phrack magazine por Aleph1 em 1996. De uma maneira geral, todo problema gira em torno da execução de dados fornecidos pelo usuário. Mas antes de aprofundarmos um pouco mais nessa questão devemos definir alguns conceitos.
+Buffer overflow é um tipo de vulnerabilidade conhecida desde o começo dos anos 90, com o primeiro artigo de destaque sobre o tema divulgado na phrack magazine por Aleph1 em 1996. De uma maneira geral, todo problema gira em torno da execução de dados fornecidos pelo usuário. Mas antes de aprofundarmos um pouco mais nessa questão devemos definir alguns conceitos.
 
 ### Definições iniciais
 	* Buffer:
@@ -25,11 +25,11 @@
 	* Pilha:
 		* Área de memória de um processo que funciona da maneira FILO (first in last out). Nela, são armazenadas e trabalhadas as variáveis locais e quaisquer outras informações necessárias em tempo de execução.
 
-	Para facilitar a execução dos labs, rode o programa setup que se encontra na home do usuário overflow. Ao fazer isso a randomização do layout de endereçamento da memória será desligada.
+Para facilitar a execução dos labs, rode o programa setup que se encontra na home do usuário overflow. Ao fazer isso a randomização do layout de endereçamento da memória será desligada.
 
 ### Lab1: Seu primeiro buffer overflow
 
-	O laboratório está nomeado como PrimeiroBO. As seguintes questões são levantadas quanto ao código C presente no diretório de mesmo nome.
+O laboratório está nomeado como PrimeiroBO. As seguintes questões são levantadas quanto ao código C presente no diretório de mesmo nome.
 
 	* O que o código C está fazendo?
 		* Declarando duas variáveis (um inteiro e um ponteiro para um buffer);
@@ -50,7 +50,7 @@
 
 ### Fluxo de controle utilizando a pilha
 
-	Muitas vezes em um programa vemos uma chamada de função dentro de uma outra função. Como exemplo, temos o código abaixo, em que a função main chama a função printf duas vezes. No entando, sabendo que as funções estão em diferentes regiões de memória, devemos ter algum mecanismo para que a execução pule da função main para o primeiro printf, do printf para a main novamente, da main para o segundo printf e do segundo printf para a main finalmente. Esse controle de fluxo de código é feito através da pilha. A instrução de máquina CALL é responsável por colocar na pilha (PUSH) o que o registrador %eip aponta. O %eip por sua vez, armazena o endereço da próxima instrução a ser executada naquele escopo. Ao término da função chamada, a instrução RET é executada, e com isso, o endereço da próxima instrução é retirado da pilha (POP) e utilizado para a continuidade da execução do programa.
+Muitas vezes em um programa vemos uma chamada de função dentro de uma outra função. Como exemplo, temos o código abaixo, em que a função main chama a função printf duas vezes. No entando, sabendo que as funções estão em diferentes regiões de memória, devemos ter algum mecanismo para que a execução pule da função main para o primeiro printf, do printf para a main novamente, da main para o segundo printf e do segundo printf para a main finalmente. Esse controle de fluxo de código é feito através da pilha. A instrução de máquina CALL é responsável por colocar na pilha (PUSH) o que o registrador %eip aponta. O %eip por sua vez, armazena o endereço da próxima instrução a ser executada naquele escopo. Ao término da função chamada, a instrução RET é executada, e com isso, o endereço da próxima instrução é retirado da pilha (POP) e utilizado para a continuidade da execução do programa.
 
 
 		#include <stdio.h>
