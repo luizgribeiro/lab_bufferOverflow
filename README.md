@@ -67,15 +67,15 @@ Muitas vezes em um programa vemos uma chamada de função dentro de uma outra fu
 	Como acabamos de ver, ao entrar em uma função é guardado um endereço de instrução a ser executada ao término da chamada de função. 
 	O intuito desse laboratório é mostrar como utilizando C, uma linguagem dita "perigosa" por deixar que algumas coisas como essa sejam feitas, podemos andar pela pilha, descobrir o local em que o endereço dessa próxima instrução está armazenado e modificá-lo para executar uma função que não havia sido chamada previamente no programa.
 
-	* Como declarar um ponteiro e atribuir a ele um endereço na pilha?
-		* int *pointer = (int *) &pointer
-	* Como descobrir o endereço da instrução guardada?
-		* Bem, nessa parte precisamos de um pouco de engenharia reversa. No entanto, consigo dizer exatamente onde ele estará pois nesse caso os passos da execução não mudarão. Sabendo que o ponteiro está 12 endereços abaixo da base da pilha. Então, o endereço de retorno estará no primeiro endereço acima da base da pilha dessa forma, a 16 acima do nosso ponteiro (contamos endereços de 4 em 4 para 32bits). como estamos trabalhando em C, devemos levar em conta a aritmética de ponteiros. Isso quer dizer que para acessarmos essa área de memória basta utilizarmos pointer[4] ou *(pointer + 4).
-	* O que colocar nesse endereço?
-		* Se queremos "reviver" deadCode, colocaríamos ali o endereço de deadCode (p[4] = &deadCode). Tudo certo. No entanto, utilizaremos a distância estática entre diferentes áreas de código em um mesmo processo para realizar essa tarefa. Dessa forma, com o gdb:
-			* disas main descobrimos o endereço da próxima instrução após call (0x08048454)
-		* disas deadCode descobrimos o endereços da primeira instrução de deadCode (0x080483fb)	
-		* então, se estamos em 0x08048454 e queremos ficar em 0x080483fb, subtraímos 0x59 unidades nessa região (p[4] -= 0x59).
+* Como declarar um ponteiro e atribuir a ele um endereço na pilha?
+	* int *pointer = (int *) &pointer
+* Como descobrir o endereço da instrução guardada?
+	* Bem, nessa parte precisamos de um pouco de engenharia reversa. No entanto, consigo dizer exatamente onde ele estará pois nesse caso os passos da execução não mudarão. Sabendo que o ponteiro está 12 endereços abaixo da base da pilha. Então, o endereço de retorno estará no primeiro endereço acima da base da pilha dessa forma, a 16 acima do nosso ponteiro (contamos endereços de 4 em 4 para 32bits). como estamos trabalhando em C, devemos levar em conta a aritmética de ponteiros. Isso quer dizer que para acessarmos essa área de memória basta utilizarmos pointer[4] ou *(pointer + 4).
+* O que colocar nesse endereço?
+	* Se queremos "reviver" deadCode, colocaríamos ali o endereço de deadCode (p[4] = &deadCode). Tudo certo. No entanto, utilizaremos a distância estática entre diferentes áreas de código em um mesmo processo para realizar essa tarefa. Dessa forma, com o gdb:
+	* disas main descobrimos o endereço da próxima instrução após call (0x08048454)
+	* disas deadCode descobrimos o endereços da primeira instrução de deadCode (0x080483fb)	
+	* então, se estamos em 0x08048454 e queremos ficar em 0x080483fb, subtraímos 0x59 unidades nessa região (p[4] -= 0x59).
 
 
 ### As funções escondidas do seu programa: 
