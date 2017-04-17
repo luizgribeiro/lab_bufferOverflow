@@ -2,11 +2,9 @@
 ### uma abordagem prática
 
 ### Motivação:
-
 	Por vezes vi amigos falando que aprender assembly era bobagem, que não agregava muita coisa. Graças a isso, desenvolvi um projeto sobre buffer overflows que resultou nesse material, como forma de incentivar os alunos a aprender assembly e descobrir o que de fato está sendo feito pela máquina.
 
 #### Nota inicial:
-
 	Favor baixar a máquina virtual que se encontra [nesse link](https://drive.google.com/open?id=0B2W5yccG00sHcS1Pem1sNUtVN2M). O guia foi construído levando em conta esse sistema desenvolvido apesar dos arquivos terem sido disponibilizados nesse mesmo repositório. Caso não queira utilizá-la, experimente os arquivos aqui disponibilizados por SUA CONTA E RISCO.
 
 	Usuário para acesso inicial: overflow senha: overflow
@@ -15,11 +13,9 @@
 ### Introdução:
 
 ### Histórico:
-
 	Buffer overflow é um tipo de vulnerabilidade conhecida desde o começo dos anos 90, com o primeiro artigo de destaque sobre o tema divulgado na phrack magazine por Aleph1 em 1996. De uma maneira geral, todo problema gira em torno da execução de dados fornecidos pelo usuário. Mas antes de aprofundarmos um pouco mais nessa questão devemos definir alguns conceitos.
 
 ### Definições iniciais
-
 	* Buffer:
 		* Uma região de memória contígua, responsável por armazenar determinada estrutura de dados.
 	* Overflow:
