@@ -64,8 +64,8 @@ Muitas vezes em um programa vemos uma chamada de função dentro de uma outra fu
 
 ### Lab2: Revivendo Código morto
 
-	Como acabamos de ver, ao entrar em uma função é guardado um endereço de instrução a ser executada ao término da chamada de função. 
-	O intuito desse laboratório é mostrar como utilizando C, uma linguagem dita "perigosa" por deixar que algumas coisas como essa sejam feitas, podemos andar pela pilha, descobrir o local em que o endereço dessa próxima instrução está armazenado e modificá-lo para executar uma função que não havia sido chamada previamente no programa.
+Como acabamos de ver, ao entrar em uma função é guardado um endereço de instrução a ser executada ao término da chamada de função. 
+O intuito desse laboratório é mostrar como utilizando C, uma linguagem dita "perigosa" por deixar que algumas coisas como essa sejam feitas, podemos andar pela pilha, descobrir o local em que o endereço dessa próxima instrução está armazenado e modificá-lo para executar uma função que não havia sido chamada previamente no programa.
 
 * Como declarar um ponteiro e atribuir a ele um endereço na pilha?
 	* int *pointer = (int *) &pointer
